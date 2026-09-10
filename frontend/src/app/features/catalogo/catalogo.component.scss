@@ -1,61 +1,81 @@
-.catalogo {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  font-family: system-ui, sans-serif;
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
 
-  &__header {
+.producto-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+
+  &__imagen {
+    height: 180px;
+    background: var(--color-bg);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  }
+    justify-content: center;
+    overflow: hidden;
 
-  &__tabla {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-
-    th,
-    td {
-      text-align: left;
-      padding: 0.5rem;
-      border-bottom: 1px solid #ddd;
-    }
-
-    input {
-      width: 5rem;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
     }
   }
-}
 
-.descripcion {
-  color: #666;
-  font-size: 0.85rem;
-}
-
-.mensaje {
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-
-  &--ok {
-    background: #e6f4ea;
-    color: #1e7e34;
+  &__placeholder {
+    font-size: 2.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    color: var(--color-border);
   }
 
-  &--error {
-    background: #fdecea;
-    color: #b71c1c;
+  &__cuerpo {
+    padding: 1rem;
+    flex: 1;
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 0.2rem 0 0.3rem;
+    }
   }
-}
 
-button {
-  cursor: pointer;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #333;
-  background: white;
-  border-radius: 4px;
+  &__sku {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
 
-  &:hover {
-    background: #f0f0f0;
+  &__precio {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  &__disponibles {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-top: 0.2rem;
+  }
+
+  &__acciones {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 1rem 1rem;
+
+    .input-cantidad {
+      width: 4.5rem;
+    }
+
+    .boton {
+      flex: 1;
+      justify-content: center;
+    }
   }
 }
