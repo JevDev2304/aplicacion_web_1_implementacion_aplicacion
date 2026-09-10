@@ -1,0 +1,17 @@
+# Secrets
+.env
+backend/.env
+*.env.local
+backend/src/main/resources/application-local.properties
+
+# Backend (Maven)
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
