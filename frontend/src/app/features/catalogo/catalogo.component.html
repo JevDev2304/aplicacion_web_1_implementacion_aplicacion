@@ -1,7 +1,12 @@
-<div class="catalogo">
-  <header class="catalogo__header">
-    <h1>Catálogo</h1>
-    <button type="button" (click)="irAlCarrito()">Ver carrito</button>
+<div class="pagina">
+  <header class="pagina__header">
+    <div>
+      <h1>Catálogo</h1>
+      <p class="pagina__subtitle">Elige tus productos y agrégalos al carrito</p>
+    </div>
+    <button type="button" class="boton boton--primario" (click)="irAlCarrito()">
+      <mat-icon class="icono">shopping_cart</mat-icon> Ver carrito
+    </button>
   </header>
 
   <p *ngIf="mensaje" class="mensaje mensaje--ok">{{ mensaje }}</p>
@@ -9,40 +14,33 @@
 
   <p *ngIf="cargando">Cargando productos...</p>
 
-  <table *ngIf="!cargando && productos.length" class="catalogo__tabla">
-    <thead>
-      <tr>
-        <th>SKU</th>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Disponibles</th>
-        <th>Cantidad</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of productos">
-        <td>{{ producto.sku }}</td>
-        <td>
-          <strong>{{ producto.nombre }}</strong>
-          <div class="descripcion">{{ producto.descripcion }}</div>
-        </td>
-        <td>{{ producto.precioUnitario | number: '1.0-2' }}</td>
-        <td>{{ producto.unidadesDisponibles }} {{ unidad(producto) }}</td>
-        <td>
-          <input
-            type="number"
-            [min]="paso(producto)"
-            [step]="paso(producto)"
-            [(ngModel)]="cantidades[producto.sku]"
-          />
-        </td>
-        <td>
-          <button type="button" (click)="agregarAlCarrito(producto)">Agregar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="grid-productos" *ngIf="!cargando && productos.length">
+    <article class="producto-card" *ngFor="let producto of productos">
+      <div class="producto-card__imagen">
+        <img *ngIf="producto.imagenUrl" [src]="producto.imagenUrl" [alt]="producto.nombre" />
+        <mat-icon *ngIf="!producto.imagenUrl" class="producto-card__placeholder">inventory_2</mat-icon>
+      </div>
+      <div class="producto-card__cuerpo">
+        <span class="producto-card__sku">{{ producto.sku }}</span>
+        <h3>{{ producto.nombre }}</h3>
+        <p class="descripcion">{{ producto.descripcion }}</p>
+        <div class="producto-card__precio">{{ producto.precioUnitario | number: '1.0-2' }}</div>
+        <div class="producto-card__disponibles">{{ producto.unidadesDisponibles }} {{ unidad(producto) }} disponibles</div>
+      </div>
+      <div class="producto-card__acciones">
+        <input
+          class="input-cantidad"
+          type="number"
+          [min]="paso(producto)"
+          [step]="paso(producto)"
+          [(ngModel)]="cantidades[producto.sku]"
+        />
+        <button type="button" class="boton boton--secundario" (click)="agregarAlCarrito(producto)">
+          <mat-icon class="icono">add_shopping_cart</mat-icon> Agregar
+        </button>
+      </div>
+    </article>
+  </div>
 
   <p *ngIf="!cargando && !productos.length">No hay productos disponibles.</p>
 </div>

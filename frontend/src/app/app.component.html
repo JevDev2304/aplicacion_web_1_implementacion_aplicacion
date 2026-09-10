@@ -1,1 +1,20 @@
-<router-outlet />
+<div class="shell">
+  <header class="shell__header">
+    <a class="shell__brand" routerLink="/tienda/catalogo">
+      <span class="shell__brand-badge">LT</span>
+      <span class="shell__brand-name">La Tienda</span>
+    </a>
+    <nav class="shell__nav">
+      <a routerLink="/tienda/catalogo" routerLinkActive="is-active">
+        <mat-icon class="icono">storefront</mat-icon> Tienda
+      </a>
+      <a routerLink="/negocio/productos" routerLinkActive="is-active">
+        <mat-icon class="icono">insights</mat-icon> Panel del negocio
+      </a>
+    </nav>
+  </header>
+
+  <main class="shell__content">
+    <router-outlet />
+  </main>
+</div>

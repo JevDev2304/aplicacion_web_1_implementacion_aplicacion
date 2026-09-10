@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../core/services/carrito.service';
 import { ProductoService } from '../../core/services/producto.service';
@@ -9,7 +10,7 @@ import { Producto } from '../../core/models/producto.model';
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIconModule],
   templateUrl: './catalogo.component.html',
   styleUrl: './catalogo.component.scss',
 })
@@ -67,6 +68,6 @@ export class CatalogoComponent implements OnInit {
   }
 
   irAlCarrito(): void {
-    this.router.navigate(['/carrito']);
+    this.router.navigate(['/tienda/carrito']);
   }
 }

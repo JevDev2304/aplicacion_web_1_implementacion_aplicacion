@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../core/services/carrito.service';
 import { Carrito } from '../../core/models/carrito.model';
@@ -7,7 +8,7 @@ import { Carrito } from '../../core/models/carrito.model';
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './carrito.component.html',
   styleUrl: './carrito.component.scss',
 })
@@ -62,6 +63,6 @@ export class CarritoComponent implements OnInit {
   }
 
   volverAlCatalogo(): void {
-    this.router.navigate(['/catalogo']);
+    this.router.navigate(['/tienda/catalogo']);
   }
 }

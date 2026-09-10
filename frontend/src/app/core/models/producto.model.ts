@@ -4,4 +4,5 @@ export interface Producto {
   descripcion: string;
   unidadesDisponibles: number;
   precioUnitario: number;
+  imagenUrl: string | null;
 }

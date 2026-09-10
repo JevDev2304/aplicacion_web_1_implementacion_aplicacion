@@ -1,0 +1,97 @@
+.negocio {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__subtitle {
+    color: var(--color-text-muted);
+    margin-top: 0.35rem;
+  }
+}
+
+.stat {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.9rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+
+  &__label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.85;
+  }
+
+  &__value {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+  }
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  input {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+
+  &__ancha {
+    grid-column: 1 / -1;
+  }
+
+  &__acciones {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+.miniatura {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+.tabla__acciones {
+  white-space: nowrap;
+
+  .boton + .boton {
+    margin-left: 0.5rem;
+  }
+}

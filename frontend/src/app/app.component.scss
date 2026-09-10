@@ -1,0 +1,69 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  &__brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+  }
+
+  &__brand-name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 0.5rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+
+      &.is-active {
+        background: var(--color-bg);
+        color: var(--color-text);
+      }
+
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+}

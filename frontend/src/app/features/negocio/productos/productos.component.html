@@ -1,0 +1,115 @@
+<div class="negocio">
+  <header class="negocio__header">
+    <div>
+      <h1>Panel del negocio</h1>
+      <p class="negocio__subtitle">Gestiona el catálogo de la tienda</p>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Total de ventas</span>
+      <span class="stat__value">{{ totalVentas | number: '1.0-2' }}</span>
+    </div>
+  </header>
+
+  <p *ngIf="mensaje" class="mensaje mensaje--ok">{{ mensaje }}</p>
+  <p *ngIf="error" class="mensaje mensaje--error">{{ error }}</p>
+
+  <section class="tarjeta">
+    <h2>{{ editandoSku ? 'Editar producto ' + editandoSku : 'Nuevo producto' }}</h2>
+    <form class="formulario" (ngSubmit)="guardar()">
+      <label>
+        SKU
+        <input
+          name="sku"
+          [(ngModel)]="formulario.sku"
+          [disabled]="!!editandoSku"
+          placeholder="EA001, WE001, SP001..."
+          required
+        />
+      </label>
+      <label>
+        Nombre
+        <input name="nombre" [(ngModel)]="formulario.nombre" required />
+      </label>
+      <label class="formulario__ancha">
+        Descripción
+        <input name="descripcion" [(ngModel)]="formulario.descripcion" required />
+      </label>
+      <label class="formulario__ancha">
+        URL de la imagen
+        <input name="imagenUrl" [(ngModel)]="formulario.imagenUrl" placeholder="https://..." />
+      </label>
+      <label>
+        Unidades disponibles
+        <input
+          type="number"
+          step="0.01"
+          name="unidadesDisponibles"
+          [(ngModel)]="formulario.unidadesDisponibles"
+          required
+        />
+      </label>
+      <label>
+        Precio unitario
+        <input
+          type="number"
+          step="0.01"
+          name="precioUnitario"
+          [(ngModel)]="formulario.precioUnitario"
+          required
+        />
+      </label>
+
+      <div class="formulario__acciones">
+        <button type="submit" class="boton boton--primario">
+          <mat-icon class="icono">{{ editandoSku ? 'save' : 'add' }}</mat-icon>
+          {{ editandoSku ? 'Guardar cambios' : 'Crear producto' }}
+        </button>
+        <button type="button" class="boton boton--secundario" *ngIf="editandoSku" (click)="cancelarEdicion()">
+          <mat-icon class="icono">close</mat-icon> Cancelar
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Catálogo</h2>
+    <p *ngIf="cargando">Cargando productos...</p>
+    <table *ngIf="!cargando && productos.length" class="tabla">
+      <thead>
+        <tr>
+          <th></th>
+          <th>SKU</th>
+          <th>Tipo</th>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Disponibles</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <td>
+            <img class="miniatura" *ngIf="producto.imagenUrl" [src]="producto.imagenUrl" [alt]="producto.nombre" />
+          </td>
+          <td>{{ producto.sku }}</td>
+          <td>{{ tipoDe(producto.sku) }}</td>
+          <td>
+            <strong>{{ producto.nombre }}</strong>
+            <div class="descripcion">{{ producto.descripcion }}</div>
+          </td>
+          <td>{{ producto.precioUnitario | number: '1.0-2' }}</td>
+          <td>{{ producto.unidadesDisponibles }}</td>
+          <td class="tabla__acciones">
+            <button type="button" class="boton boton--secundario" (click)="editar(producto)">
+              <mat-icon class="icono">edit</mat-icon> Editar
+            </button>
+            <button type="button" class="boton boton--peligro" (click)="eliminar(producto)">
+              <mat-icon class="icono">delete</mat-icon> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="!cargando && !productos.length">No hay productos registrados todavía.</p>
+  </section>
+</div>
