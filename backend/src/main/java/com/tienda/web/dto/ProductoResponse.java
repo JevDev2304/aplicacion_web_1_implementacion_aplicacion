@@ -7,7 +7,8 @@ public record ProductoResponse(
         String nombre,
         String descripcion,
         double unidadesDisponibles,
-        double precioUnitario) {
+        double precioUnitario,
+        String imagenUrl) {
 
     public static ProductoResponse from(Producto producto) {
         return new ProductoResponse(
@@ -15,6 +16,7 @@ public record ProductoResponse(
                 producto.getNombre(),
                 producto.getDescripcion(),
                 producto.getUnidadesDisponibles(),
-                producto.getPrecioUnitario());
+                producto.getPrecioUnitario(),
+                producto.getImagenUrl());
     }
 }

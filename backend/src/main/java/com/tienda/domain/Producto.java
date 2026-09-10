@@ -19,15 +19,23 @@ public class Producto {
 
     private double precioUnitario;
 
+    private String imagenUrl;
+
     protected Producto() {
     }
 
     public Producto(String sku, String nombre, String descripcion, double unidadesDisponibles, double precioUnitario) {
+        this(sku, nombre, descripcion, unidadesDisponibles, precioUnitario, null);
+    }
+
+    public Producto(String sku, String nombre, String descripcion, double unidadesDisponibles, double precioUnitario,
+            String imagenUrl) {
         this.sku = sku;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.unidadesDisponibles = unidadesDisponibles;
         this.precioUnitario = precioUnitario;
+        this.imagenUrl = imagenUrl;
     }
 
     public boolean tieneUnidades(double cantidad) {
@@ -39,6 +47,15 @@ public class Producto {
             throw new IllegalStateException("No hay unidades suficientes disponibles del producto " + sku);
         }
         unidadesDisponibles -= cantidad;
+    }
+
+    public void actualizar(String nombre, String descripcion, double unidadesDisponibles, double precioUnitario,
+            String imagenUrl) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.unidadesDisponibles = unidadesDisponibles;
+        this.precioUnitario = precioUnitario;
+        this.imagenUrl = imagenUrl;
     }
 
     public String getSku() {
@@ -59,5 +76,9 @@ public class Producto {
 
     public double getPrecioUnitario() {
         return precioUnitario;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
     }
 }
