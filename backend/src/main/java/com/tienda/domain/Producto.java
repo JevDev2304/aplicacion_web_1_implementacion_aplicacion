@@ -1,5 +1,6 @@
 package com.tienda.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,6 +22,9 @@ public class Producto {
 
     private String imagenUrl;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean activo = true;
+
     protected Producto() {
     }
 
@@ -36,6 +40,7 @@ public class Producto {
         this.unidadesDisponibles = unidadesDisponibles;
         this.precioUnitario = precioUnitario;
         this.imagenUrl = imagenUrl;
+        this.activo = true;
     }
 
     public boolean tieneUnidades(double cantidad) {
@@ -56,6 +61,14 @@ public class Producto {
         this.unidadesDisponibles = unidadesDisponibles;
         this.precioUnitario = precioUnitario;
         this.imagenUrl = imagenUrl;
+    }
+
+    public void desactivar() {
+        this.activo = false;
+    }
+
+    public void activar() {
+        this.activo = true;
     }
 
     public String getSku() {
@@ -80,5 +93,9 @@ public class Producto {
 
     public String getImagenUrl() {
         return imagenUrl;
+    }
+
+    public boolean isActivo() {
+        return activo;
     }
 }

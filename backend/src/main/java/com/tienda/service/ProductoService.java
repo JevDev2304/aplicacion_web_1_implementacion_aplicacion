@@ -4,7 +4,6 @@ import com.tienda.domain.Producto;
 import com.tienda.repository.ProductoRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,11 @@ public class ProductoService {
         this.productoRepository = productoRepository;
     }
 
-    public List<Producto> listar() {
+    public List<Producto> listarActivos() {
+        return productoRepository.findByActivoTrue();
+    }
+
+    public List<Producto> listarTodos() {
         return productoRepository.findAll();
     }
 
@@ -46,15 +49,15 @@ public class ProductoService {
 
     @Transactional
     public void eliminar(String sku) {
-        if (!productoRepository.existsById(sku)) {
-            throw new NoSuchElementException("Producto no encontrado: " + sku);
-        }
-        try {
-            productoRepository.deleteById(sku);
-            productoRepository.flush();
-        } catch (DataIntegrityViolationException ex) {
-            throw new IllegalStateException(
-                    "No se puede eliminar " + sku + ": tiene carritos o ventas asociadas");
-        }
+        Producto producto = obtener(sku);
+        producto.desactivar();
+        productoRepository.save(producto);
+    }
+
+    @Transactional
+    public Producto activar(String sku) {
+        Producto producto = obtener(sku);
+        producto.activar();
+        return productoRepository.save(producto);
     }
 }

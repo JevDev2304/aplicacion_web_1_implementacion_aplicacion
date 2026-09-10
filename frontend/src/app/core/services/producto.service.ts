@@ -23,6 +23,10 @@ export class ProductoService {
     return this.http.get<Producto[]>(this.baseUrl);
   }
 
+  listarTodos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.baseUrl}/todos`);
+  }
+
   crear(producto: ProductoInput): Observable<Producto> {
     return this.http.post<Producto>(this.baseUrl, producto);
   }
@@ -33,5 +37,9 @@ export class ProductoService {
 
   eliminar(sku: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${sku}`);
+  }
+
+  activar(sku: string): Observable<Producto> {
+    return this.http.post<Producto>(`${this.baseUrl}/${sku}/activar`, {});
   }
 }

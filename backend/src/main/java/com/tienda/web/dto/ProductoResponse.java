@@ -8,7 +8,8 @@ public record ProductoResponse(
         String descripcion,
         double unidadesDisponibles,
         double precioUnitario,
-        String imagenUrl) {
+        String imagenUrl,
+        boolean activo) {
 
     public static ProductoResponse from(Producto producto) {
         return new ProductoResponse(
@@ -17,6 +18,7 @@ public record ProductoResponse(
                 producto.getDescripcion(),
                 producto.getUnidadesDisponibles(),
                 producto.getPrecioUnitario(),
-                producto.getImagenUrl());
+                producto.getImagenUrl(),
+                producto.isActivo());
     }
 }

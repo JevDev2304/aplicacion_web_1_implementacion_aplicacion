@@ -46,7 +46,7 @@ export class ProductosAdminComponent implements OnInit {
 
   cargarProductos(): void {
     this.cargando = true;
-    this.productoService.listar().subscribe({
+    this.productoService.listarTodos().subscribe({
       next: (productos) => {
         this.productos = productos;
         this.cargando = false;
@@ -111,14 +111,28 @@ export class ProductosAdminComponent implements OnInit {
     this.error = '';
     this.productoService.eliminar(producto.sku).subscribe({
       next: () => {
-        this.mensaje = `Producto ${producto.sku} eliminado.`;
+        this.mensaje = `Producto ${producto.sku} descontinuado. Ya no aparecerá en el catálogo, pero su historial se conserva.`;
         if (this.editandoSku === producto.sku) {
           this.cancelarEdicion();
         }
         this.cargarProductos();
       },
       error: (err) => {
-        this.error = err?.error?.mensaje ?? 'No se pudo eliminar el producto.';
+        this.error = err?.error?.mensaje ?? 'No se pudo descontinuar el producto.';
+      },
+    });
+  }
+
+  reactivar(producto: Producto): void {
+    this.mensaje = '';
+    this.error = '';
+    this.productoService.activar(producto.sku).subscribe({
+      next: () => {
+        this.mensaje = `Producto ${producto.sku} reactivado.`;
+        this.cargarProductos();
+      },
+      error: (err) => {
+        this.error = err?.error?.mensaje ?? 'No se pudo reactivar el producto.';
       },
     });
   }

@@ -88,10 +88,71 @@
   display: block;
 }
 
+.tabla-scroll {
+  overflow-x: auto;
+}
+
+.tabla {
+  table-layout: fixed;
+  min-width: 760px;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 56px;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 70px;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 100px;
+  }
+
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 80px;
+  }
+
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 90px;
+  }
+
+  th:nth-child(7),
+  td:nth-child(7) {
+    width: 110px;
+  }
+
+  th:nth-child(8),
+  td:nth-child(8) {
+    width: 200px;
+  }
+}
+
 .tabla__acciones {
   white-space: nowrap;
 
   .boton + .boton {
     margin-left: 0.5rem;
+  }
+}
+
+.fila--inactiva {
+  opacity: 0.6;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: var(--color-primary);
+  color: #fff;
+
+  &--inactiva {
+    background: var(--color-text-muted);
   }
 }

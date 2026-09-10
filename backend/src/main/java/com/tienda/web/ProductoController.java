@@ -27,7 +27,12 @@ public class ProductoController {
 
     @GetMapping
     public List<ProductoResponse> listar() {
-        return productoService.listar().stream().map(ProductoResponse::from).toList();
+        return productoService.listarActivos().stream().map(ProductoResponse::from).toList();
+    }
+
+    @GetMapping("/todos")
+    public List<ProductoResponse> listarTodos() {
+        return productoService.listarTodos().stream().map(ProductoResponse::from).toList();
     }
 
     @GetMapping("/{sku}")
@@ -53,5 +58,10 @@ public class ProductoController {
     public ResponseEntity<Void> eliminar(@PathVariable String sku) {
         productoService.eliminar(sku);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{sku}/activar")
+    public ProductoResponse activar(@PathVariable String sku) {
+        return ProductoResponse.from(productoService.activar(sku));
     }
 }

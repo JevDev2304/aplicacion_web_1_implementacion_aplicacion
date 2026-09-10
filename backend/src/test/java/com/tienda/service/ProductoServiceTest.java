@@ -61,9 +61,20 @@ class ProductoServiceTest {
 
     @Test
     void eliminarFallaSiElProductoNoExiste() {
-        when(productoRepository.existsById("XX999")).thenReturn(false);
+        when(productoRepository.findById("XX999")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> productoService.eliminar("XX999"))
                 .isInstanceOf(java.util.NoSuchElementException.class);
+    }
+
+    @Test
+    void eliminarDesactivaElProductoEnLugarDeBorrarlo() {
+        Producto existente = new Producto("EA001", "Cuaderno", "desc", 10, 8000);
+        when(productoRepository.findById("EA001")).thenReturn(Optional.of(existente));
+        when(productoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        productoService.eliminar("EA001");
+
+        assertThat(existente.isActivo()).isFalse();
     }
 }

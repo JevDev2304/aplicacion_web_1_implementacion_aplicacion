@@ -5,4 +5,5 @@ export interface Producto {
   unidadesDisponibles: number;
   precioUnitario: number;
   imagenUrl: string | null;
+  activo: boolean;
 }

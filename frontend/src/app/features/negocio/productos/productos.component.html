@@ -74,7 +74,8 @@
   <section class="tarjeta">
     <h2>Catálogo</h2>
     <p *ngIf="cargando">Cargando productos...</p>
-    <table *ngIf="!cargando && productos.length" class="tabla">
+    <div *ngIf="!cargando && productos.length" class="tabla-scroll">
+    <table class="tabla">
       <thead>
         <tr>
           <th></th>
@@ -83,11 +84,12 @@
           <th>Producto</th>
           <th>Precio</th>
           <th>Disponibles</th>
+          <th>Estado</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let producto of productos">
+        <tr *ngFor="let producto of productos" [class.fila--inactiva]="!producto.activo">
           <td>
             <img class="miniatura" *ngIf="producto.imagenUrl" [src]="producto.imagenUrl" [alt]="producto.nombre" />
           </td>
@@ -99,17 +101,36 @@
           </td>
           <td>{{ producto.precioUnitario | number: '1.0-2' }}</td>
           <td>{{ producto.unidadesDisponibles }}</td>
+          <td>
+            <span class="etiqueta" [class.etiqueta--inactiva]="!producto.activo">
+              {{ producto.activo ? 'Activo' : 'Descontinuado' }}
+            </span>
+          </td>
           <td class="tabla__acciones">
             <button type="button" class="boton boton--secundario" (click)="editar(producto)">
               <mat-icon class="icono">edit</mat-icon> Editar
             </button>
-            <button type="button" class="boton boton--peligro" (click)="eliminar(producto)">
+            <button
+              *ngIf="producto.activo"
+              type="button"
+              class="boton boton--peligro"
+              (click)="eliminar(producto)"
+            >
               <mat-icon class="icono">delete</mat-icon> Eliminar
+            </button>
+            <button
+              *ngIf="!producto.activo"
+              type="button"
+              class="boton boton--secundario"
+              (click)="reactivar(producto)"
+            >
+              <mat-icon class="icono">restore</mat-icon> Reactivar
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    </div>
     <p *ngIf="!cargando && !productos.length">No hay productos registrados todavía.</p>
   </section>
 </div>
