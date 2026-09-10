@@ -1,0 +1,41 @@
+<div class="carrito">
+  <header class="carrito__header">
+    <h1>Carrito de compras</h1>
+    <button type="button" (click)="volverAlCatalogo()">Seguir comprando</button>
+  </header>
+
+  <p *ngIf="mensaje" class="mensaje mensaje--ok">{{ mensaje }}</p>
+  <p *ngIf="error" class="mensaje mensaje--error">{{ error }}</p>
+
+  <p *ngIf="cargando">Cargando carrito...</p>
+
+  <ng-container *ngIf="!cargando && carrito">
+    <table *ngIf="carrito.items.length" class="carrito__tabla">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of carrito.items">
+          <td>{{ item.nombreProducto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.total | number: '1.0-2' }}</td>
+          <td>
+            <button type="button" (click)="eliminarItem(item.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!carrito.items.length">Tu carrito está vacío.</p>
+
+    <div class="carrito__resumen" *ngIf="carrito.items.length">
+      <strong>Total: {{ carrito.total | number: '1.0-2' }}</strong>
+      <button type="button" (click)="confirmarCompra()">Confirmar compra</button>
+    </div>
+  </ng-container>
+</div>

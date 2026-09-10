@@ -1,0 +1,48 @@
+<div class="catalogo">
+  <header class="catalogo__header">
+    <h1>Catálogo</h1>
+    <button type="button" (click)="irAlCarrito()">Ver carrito</button>
+  </header>
+
+  <p *ngIf="mensaje" class="mensaje mensaje--ok">{{ mensaje }}</p>
+  <p *ngIf="error" class="mensaje mensaje--error">{{ error }}</p>
+
+  <p *ngIf="cargando">Cargando productos...</p>
+
+  <table *ngIf="!cargando && productos.length" class="catalogo__tabla">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Disponibles</th>
+        <th>Cantidad</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.sku }}</td>
+        <td>
+          <strong>{{ producto.nombre }}</strong>
+          <div class="descripcion">{{ producto.descripcion }}</div>
+        </td>
+        <td>{{ producto.precioUnitario | number: '1.0-2' }}</td>
+        <td>{{ producto.unidadesDisponibles }} {{ unidad(producto) }}</td>
+        <td>
+          <input
+            type="number"
+            [min]="paso(producto)"
+            [step]="paso(producto)"
+            [(ngModel)]="cantidades[producto.sku]"
+          />
+        </td>
+        <td>
+          <button type="button" (click)="agregarAlCarrito(producto)">Agregar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!cargando && !productos.length">No hay productos disponibles.</p>
+</div>
